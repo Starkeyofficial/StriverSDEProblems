@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+
+        vector<vector<int>> resultArray;
+
+        sort(intervals.begin(), intervals.end());
+
+        resultArray.push_back(intervals[0]);
+
+        int size = intervals.size(), tracker = 0;
+            for(int i = 1; i < size; i++){
+                
+            if(resultArray[tracker][0] < intervals[i][0] && resultArray[tracker][1] < intervals[i][0]){
+                resultArray.push_back(intervals[i]);
+                tracker++;
+            }else{
+                resultArray[tracker][0] = min(intervals[i][0],resultArray[tracker][0]);
+                resultArray[tracker][1] = max(intervals[i][1], resultArray[tracker][1]) ;
+            }
+        
+        }
+        return resultArray;
+    }
+};
